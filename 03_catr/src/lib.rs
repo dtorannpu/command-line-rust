@@ -20,7 +20,6 @@ pub fn get_args() -> MyResult<Config> {
             Arg::new("files")
                 .value_name("FILE")
                 .help("Input file(s)")
-                .required(true)
                 .action(ArgAction::Append)
                 .default_value("-")
         )

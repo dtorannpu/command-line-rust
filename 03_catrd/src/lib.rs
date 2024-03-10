@@ -13,7 +13,6 @@ about = "Rust cat"
 pub struct Args {
     #[arg(
     value_name = "FILE",
-    required = true,
     help = "Input file(s)",
     action = clap::ArgAction::Append,
     default_value = "-",
