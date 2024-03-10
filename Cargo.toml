@@ -2,6 +2,7 @@
 members = [
     "01_hello",
     "02_echor",
+    "02_echord",
     "03_catr",
     "04_headr",
     "05_wcr",
