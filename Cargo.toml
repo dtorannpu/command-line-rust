@@ -1,0 +1,16 @@
+[workspace]
+members = [
+    "01_hello",
+    "02_echor",
+    "03_catr",
+    "04_headr",
+    "05_wcr",
+]
+resolver = "2"
+
+[workspace.dependencies]
+clap = { version = "4.5.2", features = ["derive"] }
+
+assert_cmd = "2.0.14"
+predicates = "3.1.0"
+rand = "0.8.5"
