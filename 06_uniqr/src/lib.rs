@@ -3,8 +3,8 @@ use std::fs::File;
 use std::io;
 use std::io::{BufRead, BufReader, Write};
 
-use clap::ArgAction::SetTrue;
 use clap::{Arg, Command};
+use clap::ArgAction::SetTrue;
 
 type MyResult<T> = Result<T, Box<dyn Error>>;
 
@@ -16,7 +16,7 @@ pub struct Config {
 }
 
 pub fn get_args() -> MyResult<Config> {
-    let matches = Command::new("uniq")
+    let matches = Command::new("uniqr")
         .version("0.1.0")
         .about("Rust uniq")
         .arg(
