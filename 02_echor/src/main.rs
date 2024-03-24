@@ -10,17 +10,18 @@ fn main() {
                 .value_name("TEXT")
                 .help("Input text")
                 .required(true)
-                .action(ArgAction::Append)
+                .action(ArgAction::Append),
         )
         .arg(
             Arg::new("omit_newline")
                 .short('n')
                 .help("Do not print newline")
-                .action(ArgAction::SetTrue)
+                .action(ArgAction::SetTrue),
         )
         .get_matches();
 
-    let text = matches.get_many::<String>("text")
+    let text = matches
+        .get_many::<String>("text")
         .unwrap()
         .map(|v| v.as_str())
         .collect::<Vec<_>>();

@@ -33,28 +33,28 @@ pub fn get_args() -> MyResult<Config> {
                 .value_name("FILE")
                 .help("Input file(s)")
                 .action(ArgAction::Append)
-                .default_value("-")
+                .default_value("-"),
         )
         .arg(
             Arg::new("lines")
                 .short('l')
                 .long("lines")
                 .help("Show line count")
-                .action(ArgAction::SetTrue)
+                .action(ArgAction::SetTrue),
         )
         .arg(
             Arg::new("words")
                 .short('w')
                 .long("words")
                 .help("Show word count")
-                .action(ArgAction::SetTrue)
+                .action(ArgAction::SetTrue),
         )
         .arg(
             Arg::new("bytes")
                 .short('c')
                 .long("bytes")
                 .help("Show byte count")
-                .action(ArgAction::SetTrue)
+                .action(ArgAction::SetTrue),
         )
         .arg(
             Arg::new("chars")
@@ -63,11 +63,12 @@ pub fn get_args() -> MyResult<Config> {
                 .help("Show character count")
                 .conflicts_with("bytes")
                 .action(ArgAction::SetTrue)
-                .conflicts_with("bytes")
+                .conflicts_with("bytes"),
         )
         .get_matches();
 
-    let files = matches.get_many::<String>("files")
+    let files = matches
+        .get_many::<String>("files")
         .expect("files required")
         .map(|v| v.to_string())
         .collect::<Vec<_>>();
@@ -82,7 +83,6 @@ pub fn get_args() -> MyResult<Config> {
         words = true;
         bytes = true;
     }
-
 
     Ok(Config {
         files,
@@ -104,16 +104,17 @@ pub fn run(config: Config) -> MyResult<()> {
             Err(err) => eprintln!("{}: {}", filename, err),
             Ok(file) => {
                 if let Ok(info) = count(file) {
-                    println!("{}{}{}{}{}",
-                             format_field(info.num_lines, config.lines),
-                             format_field(info.num_words, config.words),
-                             format_field(info.num_bytes, config.bytes),
-                             format_field(info.num_chars, config.chars),
-                             if filename == "-" {
-                                 "".to_string()
-                             } else {
-                                 format!(" {}", filename)
-                             }
+                    println!(
+                        "{}{}{}{}{}",
+                        format_field(info.num_lines, config.lines),
+                        format_field(info.num_words, config.words),
+                        format_field(info.num_bytes, config.bytes),
+                        format_field(info.num_chars, config.chars),
+                        if filename == "-" {
+                            "".to_string()
+                        } else {
+                            format!(" {}", filename)
+                        }
                     );
 
                     total_lines += info.num_lines;

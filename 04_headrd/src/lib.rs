@@ -3,15 +3,12 @@ use std::fs::File;
 use std::io;
 use std::io::{BufRead, BufReader, Read};
 
-use clap::{Parser, value_parser};
+use clap::{value_parser, Parser};
 
 type MyResult<T> = Result<T, Box<dyn Error>>;
 
 #[derive(Parser, Debug)]
-#[command(
-version,
-about = "Rust head"
-)]
+#[command(version, about = "Rust head")]
 pub struct Args {
     #[arg(
     value_name = "FILE",
@@ -63,10 +60,7 @@ pub fn run(args: Args) -> MyResult<()> {
                     let mut handle = file.take(num_bytes);
                     let mut buffer = vec![0; num_bytes as usize];
                     let bytes_read = handle.read(&mut buffer)?;
-                    print!(
-                        "{}",
-                        String::from_utf8_lossy(&buffer[..bytes_read])
-                    );
+                    print!("{}", String::from_utf8_lossy(&buffer[..bytes_read]));
                 } else {
                     let mut line = String::new();
                     for _ in 0..args.lines {

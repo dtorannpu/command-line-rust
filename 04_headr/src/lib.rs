@@ -1,9 +1,8 @@
-use clap::{Arg, ArgAction, Command, value_parser};
+use clap::{value_parser, Arg, ArgAction, Command};
 use std::error::Error;
 use std::fs::File;
 use std::io;
 use std::io::{BufRead, BufReader, Read};
-
 
 type MyResult<T> = Result<T, Box<dyn Error>>;
 
@@ -23,7 +22,7 @@ pub fn get_args() -> MyResult<Config> {
                 .value_name("FILE")
                 .help("Input file(s)")
                 .action(ArgAction::Append)
-                .default_value("-")
+                .default_value("-"),
         )
         .arg(
             Arg::new("lines")
@@ -31,7 +30,7 @@ pub fn get_args() -> MyResult<Config> {
                 .long("lines")
                 .help("Number of lines")
                 .default_value("10")
-                .value_parser(value_parser!(u64).range(1..))
+                .value_parser(value_parser!(u64).range(1..)),
         )
         .arg(
             Arg::new("bytes")
@@ -39,23 +38,19 @@ pub fn get_args() -> MyResult<Config> {
                 .long("bytes")
                 .conflicts_with("lines")
                 .help("Number of bytes")
-                .value_parser(value_parser!(u64).range(1..))
+                .value_parser(value_parser!(u64).range(1..)),
         )
         .get_matches();
 
-    let files = matches.get_many::<String>("files")
+    let files = matches
+        .get_many::<String>("files")
         .expect("files required")
         .map(|v| v.to_string())
         .collect::<Vec<_>>();
 
-    let lines: u64 = *matches
-        .get_one("lines")
-        .expect("illegal state")
-        ;
+    let lines: u64 = *matches.get_one("lines").expect("illegal state");
 
-    let bytes: Option<u64> = matches
-        .get_one("bytes")
-        .copied();
+    let bytes: Option<u64> = matches.get_one("bytes").copied();
 
     Ok(Config {
         files,
@@ -83,10 +78,7 @@ pub fn run(config: Config) -> MyResult<()> {
                     let mut handle = file.take(num_bytes);
                     let mut buffer = vec![0; num_bytes as usize];
                     let bytes_read = handle.read(&mut buffer)?;
-                    print!(
-                        "{}",
-                        String::from_utf8_lossy(&buffer[..bytes_read])
-                    );
+                    print!("{}", String::from_utf8_lossy(&buffer[..bytes_read]));
                 } else {
                     let mut line = String::new();
                     for _ in 0..config.lines {

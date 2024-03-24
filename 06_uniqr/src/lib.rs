@@ -3,8 +3,8 @@ use std::fs::File;
 use std::io;
 use std::io::{BufRead, BufReader, Write};
 
-use clap::{Arg, Command};
 use clap::ArgAction::{Set, SetTrue};
+use clap::{Arg, Command};
 
 type MyResult<T> = Result<T, Box<dyn Error>>;
 
@@ -19,25 +19,26 @@ pub fn get_args() -> MyResult<Config> {
     let matches = Command::new("uniq")
         .version("0.1.0")
         .about("Rust uniq")
-        .arg(Arg::new("in_file")
-            .value_name("IN_FILE")
-            .help("Input file [default: -]")
-            .default_value("-")
-            .action(Set)
-        ).
-
-        arg(Arg::new("out_file")
-            .value_name("OUT_FILE")
-            .help("Output file")
+        .arg(
+            Arg::new("in_file")
+                .value_name("IN_FILE")
+                .help("Input file [default: -]")
+                .default_value("-")
+                .action(Set),
         )
-        .arg(Arg::new("count")
-            .value_name("count")
-            .short('c')
-            .long("count")
-            .help("Show counts")
-            .action(SetTrue)
+        .arg(
+            Arg::new("out_file")
+                .value_name("OUT_FILE")
+                .help("Output file"),
         )
-
+        .arg(
+            Arg::new("count")
+                .value_name("count")
+                .short('c')
+                .long("count")
+                .help("Show counts")
+                .action(SetTrue),
+        )
         .get_matches();
 
     Ok(Config {
@@ -48,8 +49,7 @@ pub fn get_args() -> MyResult<Config> {
 }
 
 pub fn run(config: Config) -> MyResult<()> {
-    let mut file = open(&config.in_file)
-        .map_err(|e| format!("{}: {}", config.in_file, e))?;
+    let mut file = open(&config.in_file).map_err(|e| format!("{}: {}", config.in_file, e))?;
 
     let mut out_file: Box<dyn Write> = match &config.out_file {
         Some(out_name) => Box::new(File::create(out_name)?),

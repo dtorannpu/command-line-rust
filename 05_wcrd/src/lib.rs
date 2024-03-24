@@ -8,10 +8,7 @@ use clap::Parser;
 type MyResult<T> = Result<T, Box<dyn Error>>;
 
 #[derive(Parser, Debug)]
-#[command(
-version,
-about = "Rust wc"
-)]
+#[command(version, about = "Rust wc")]
 pub struct Args {
     #[arg(
     value_name = "FILE",
@@ -20,30 +17,17 @@ pub struct Args {
     default_value = "-",
     )]
     files: Vec<String>,
-    #[arg(
-    short = 'l',
-    long = "lines",
-    help = "Show line count",
-    )]
+    #[arg(short = 'l', long = "lines", help = "Show line count")]
     lines: bool,
-    #[arg(
-    short = 'w',
-    long = "words",
-    help = "Show word count",
-    )]
+    #[arg(short = 'w', long = "words", help = "Show word count")]
     words: bool,
-    #[arg(
-    id = "bytes",
-    short = 'b',
-    long = "bytes",
-    help = "Show byte count",
-    )]
+    #[arg(id = "bytes", short = 'b', long = "bytes", help = "Show byte count")]
     bytes: bool,
     #[arg(
-    short = 'm',
-    long = "chars",
-    help = "Show character count",
-    conflicts_with = "bytes"
+        short = 'm',
+        long = "chars",
+        help = "Show character count",
+        conflicts_with = "bytes"
     )]
     chars: bool,
 }
@@ -73,12 +57,14 @@ pub fn get_args() -> MyResult<Config> {
     let mut bytes = args.bytes;
     let chars = args.chars;
 
-    if [lines, words, bytes, args.chars].iter().all(|v| v == &false) {
+    if [lines, words, bytes, args.chars]
+        .iter()
+        .all(|v| v == &false)
+    {
         lines = true;
         words = true;
         bytes = true;
     }
-
 
     Ok(Config {
         files,
@@ -100,16 +86,17 @@ pub fn run(config: Config) -> MyResult<()> {
             Err(err) => eprintln!("{}: {}", filename, err),
             Ok(file) => {
                 if let Ok(info) = count(file) {
-                    println!("{}{}{}{}{}",
-                             format_field(info.num_lines, config.lines),
-                             format_field(info.num_words, config.words),
-                             format_field(info.num_bytes, config.bytes),
-                             format_field(info.num_chars, config.chars),
-                             if filename == "-" {
-                                 "".to_string()
-                             } else {
-                                 format!(" {}", filename)
-                             }
+                    println!(
+                        "{}{}{}{}{}",
+                        format_field(info.num_lines, config.lines),
+                        format_field(info.num_words, config.words),
+                        format_field(info.num_bytes, config.bytes),
+                        format_field(info.num_chars, config.chars),
+                        if filename == "-" {
+                            "".to_string()
+                        } else {
+                            format!(" {}", filename)
+                        }
                     );
 
                     total_lines += info.num_lines;

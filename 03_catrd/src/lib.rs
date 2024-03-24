@@ -6,10 +6,7 @@ use std::io::{BufRead, BufReader};
 use clap::Parser;
 
 #[derive(Parser, Debug)]
-#[command(
-version,
-about = "Rust cat"
-)]
+#[command(version, about = "Rust cat")]
 pub struct Args {
     #[arg(
     value_name = "FILE",
@@ -19,17 +16,17 @@ pub struct Args {
     )]
     files: Vec<String>,
     #[arg(
-    short = 'n',
-    long = "number",
-    help = "Number lines",
-    conflicts_with = "number_nonblank"
+        short = 'n',
+        long = "number",
+        help = "Number lines",
+        conflicts_with = "number_nonblank"
     )]
     number_lines: bool,
     #[arg(
-    id = "number_nonblank",
-    short = 'b',
-    long = "number-nonblank",
-    help = "Number non-blank lines"
+        id = "number_nonblank",
+        short = 'b',
+        long = "number-nonblank",
+        help = "Number non-blank lines"
     )]
     number_nonblank_lines: bool,
 }

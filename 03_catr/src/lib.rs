@@ -1,8 +1,8 @@
+use clap::{Arg, ArgAction, Command};
 use std::error::Error;
 use std::fs::File;
 use std::io;
 use std::io::{BufRead, BufReader};
-use clap::{Arg, ArgAction, Command};
 
 #[derive(Debug)]
 pub struct Config {
@@ -21,7 +21,7 @@ pub fn get_args() -> MyResult<Config> {
                 .value_name("FILE")
                 .help("Input file(s)")
                 .action(ArgAction::Append)
-                .default_value("-")
+                .default_value("-"),
         )
         .arg(
             Arg::new("number")
@@ -29,18 +29,19 @@ pub fn get_args() -> MyResult<Config> {
                 .long("number")
                 .action(ArgAction::SetTrue)
                 .help("Number lines")
-                .conflicts_with("number_nonblank")
+                .conflicts_with("number_nonblank"),
         )
         .arg(
             Arg::new("number_nonblank")
                 .short('b')
                 .long("number-nonblank")
                 .action(ArgAction::SetTrue)
-                .help("Number non-blank lines")
+                .help("Number non-blank lines"),
         )
         .get_matches();
 
-    let files = matches.get_many::<String>("files")
+    let files = matches
+        .get_many::<String>("files")
         .expect("files required")
         .map(|v| v.to_string())
         .collect::<Vec<_>>();

@@ -39,7 +39,10 @@ fn gen_bad_file() -> String {
 #[test]
 fn dies_bad_bytes() -> TestResult {
     let bad = random_string();
-    let expected = format!("error: invalid value '{}' for '--bytes <bytes>': invalid digit found in string", &bad);
+    let expected = format!(
+        "error: invalid value '{}' for '--bytes <bytes>': invalid digit found in string",
+        &bad
+    );
     Command::cargo_bin(PRG)?
         .args(&["-c", &bad, EMPTY])
         .assert()
@@ -53,7 +56,10 @@ fn dies_bad_bytes() -> TestResult {
 #[test]
 fn dies_bad_lines() -> TestResult {
     let bad = random_string();
-    let expected = format!("error: invalid value '{}' for '--lines <lines>': invalid digit found in string", &bad);
+    let expected = format!(
+        "error: invalid value '{}' for '--lines <lines>': invalid digit found in string",
+        &bad
+    );
     Command::cargo_bin(PRG)?
         .args(&["-n", &bad, EMPTY])
         .assert()
@@ -108,11 +114,7 @@ fn run(args: &[&str], expected_file: &str) -> TestResult {
 }
 
 // --------------------------------------------------
-fn run_stdin(
-    args: &[&str],
-    input_file: &str,
-    expected_file: &str,
-) -> TestResult {
+fn run_stdin(args: &[&str], input_file: &str, expected_file: &str) -> TestResult {
     // Extra work here due to lossy UTF
     let mut file = File::open(expected_file)?;
     let mut buffer = Vec::new();
