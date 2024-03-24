@@ -1,5 +1,5 @@
 [package]
-name = "uniqr"
+name = "uniqrd"
 version = "0.1.0"
 edition = "2021"
 
@@ -13,3 +13,4 @@ assert_cmd.workspace = true
 predicates.workspace = true
 rand.workspace = true
 tempfile.workspace = true
+

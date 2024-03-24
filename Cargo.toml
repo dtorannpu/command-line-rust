@@ -10,6 +10,7 @@ members = [
     "05_wcr",
     "05_wcrd",
     "06_uniqr",
+    "06_uniqrd",
 ]
 resolver = "2"
 
@@ -19,3 +20,4 @@ clap = { version = "4.5.2", features = ["derive"] }
 assert_cmd = "2.0.14"
 predicates = "3.1.0"
 rand = "0.8.5"
+tempfile = "3.10.1"
