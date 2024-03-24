@@ -11,11 +11,14 @@ members = [
     "05_wcrd",
     "06_uniqr",
     "06_uniqrd",
+    "07_findr",
 ]
 resolver = "2"
 
 [workspace.dependencies]
 clap = { version = "4.5.2", features = ["derive"] }
+walkdir = "2.5.0"
+regex = "1.10.4"
 
 assert_cmd = "2.0.14"
 predicates = "3.1.0"
