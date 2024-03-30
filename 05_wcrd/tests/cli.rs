@@ -1,11 +1,12 @@
+use std::fs;
+
 use assert_cmd::Command;
 use predicates::prelude::*;
 use rand::{distributions::Alphanumeric, Rng};
-use std::fs;
 
 type TestResult = Result<(), Box<dyn std::error::Error>>;
 
-const PRG: &str = "wcr";
+const PRG: &str = "wcrd";
 const EMPTY: &str = "tests/inputs/empty.txt";
 const FOX: &str = "tests/inputs/fox.txt";
 const ATLAMAL: &str = "tests/inputs/atlamal.txt";

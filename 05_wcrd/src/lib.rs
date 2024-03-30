@@ -21,7 +21,7 @@ pub struct Args {
     lines: bool,
     #[arg(short = 'w', long = "words", help = "Show word count")]
     words: bool,
-    #[arg(id = "bytes", short = 'b', long = "bytes", help = "Show byte count")]
+    #[arg(id = "bytes", short = 'c', long = "bytes", help = "Show byte count")]
     bytes: bool,
     #[arg(
         short = 'm',
