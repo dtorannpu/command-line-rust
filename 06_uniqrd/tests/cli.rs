@@ -1,7 +1,8 @@
+use std::fs;
+
 use assert_cmd::Command;
 use predicates::prelude::*;
 use rand::{distributions::Alphanumeric, Rng};
-use std::fs;
 use tempfile::NamedTempFile;
 
 type TestResult = Result<(), Box<dyn std::error::Error>>;
@@ -12,7 +13,7 @@ struct Test {
     out_count: &'static str,
 }
 
-const PRG: &str = "uniqr";
+const PRG: &str = "uniqrd";
 
 const EMPTY: Test = Test {
     input: "tests/inputs/empty.txt",
