@@ -3,8 +3,8 @@ use std::fs::File;
 use std::io;
 use std::io::{BufRead, BufReader, Write};
 
-use clap::{Arg, Command};
 use clap::ArgAction::SetTrue;
+use clap::{Arg, Command};
 
 type MyResult<T> = Result<T, Box<dyn Error>>;
 

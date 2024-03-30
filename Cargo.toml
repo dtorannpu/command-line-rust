@@ -12,6 +12,7 @@ members = [
     "06_uniqr",
     "06_uniqrd",
     "07_findr",
+    "07_findrd",
 ]
 resolver = "2"
 
