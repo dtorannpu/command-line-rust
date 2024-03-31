@@ -9,7 +9,6 @@ edition = "2021"
 clap.workspace = true
 walkdir.workspace = true
 regex.workspace = true
-log = "0.4.21"
 
 [dev-dependencies]
 assert_cmd.workspace = true
