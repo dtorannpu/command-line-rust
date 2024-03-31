@@ -53,7 +53,7 @@ pub fn get_args() -> MyResult<Config> {
                 .short('f')
                 .long("fields")
                 .help("Selected fields")
-                .conflicts_with_all(&["chars", "bytes"]),
+                .conflicts_with_all(["chars", "bytes"]),
         )
         .arg(
             Arg::new("bytes")
@@ -61,7 +61,7 @@ pub fn get_args() -> MyResult<Config> {
                 .short('b')
                 .long("bytes")
                 .help("Selected bytes")
-                .conflicts_with_all(&["fields", "chars"]),
+                .conflicts_with_all(["fields", "chars"]),
         )
         .arg(
             Arg::new("chars")
@@ -69,7 +69,7 @@ pub fn get_args() -> MyResult<Config> {
                 .short('c')
                 .long("chars")
                 .help("Selected characters")
-                .conflicts_with_all(&["fields", "bytes"]),
+                .conflicts_with_all(["fields", "bytes"]),
         )
         .get_matches();
 
@@ -84,15 +84,15 @@ pub fn get_args() -> MyResult<Config> {
 
     let fields = matches
         .get_one::<String>("fields")
-        .map(|s| parse_pos(&s))
+        .map(|s| parse_pos(s))
         .transpose()?;
     let bytes = matches
         .get_one::<String>("bytes")
-        .map(|s| parse_pos(&s))
+        .map(|s| parse_pos(s))
         .transpose()?;
     let chars = matches
         .get_one::<String>("chars")
-        .map(|s| parse_pos(&s))
+        .map(|s| parse_pos(s))
         .transpose()?;
 
     let extract = if let Some(field_pos) = fields {
@@ -157,7 +157,6 @@ fn parse_pos(range: &str) -> MyResult<PositionList> {
     let range_re = Regex::new(r"^(\d+)-(\d+)$").unwrap();
     range
         .split(',')
-        .into_iter()
         .map(|val| {
             parse_index(val).map(|n| n..n + 1).or_else(|e| {
                 range_re.captures(val).ok_or(e).and_then(|captures| {
@@ -204,8 +203,7 @@ fn extract_chars(line: &str, char_pos: &[Range<usize>]) -> String {
     char_pos
         .iter()
         .cloned()
-        .map(|range| range.filter_map(|i| chars.get(i)))
-        .flatten()
+        .flat_map(|range| range.filter_map(|i| chars.get(i)))
         .collect()
 }
 
@@ -214,8 +212,7 @@ fn extract_bytes(line: &str, byte_pos: &[Range<usize>]) -> String {
     let selected: Vec<_> = byte_pos
         .iter()
         .cloned()
-        .map(|range| range.filter_map(|i| bytes.get(i)).copied())
-        .flatten()
+        .flat_map(|range| range.filter_map(|i| bytes.get(i)).copied())
         .collect();
     String::from_utf8_lossy(&selected).into_owned()
 }

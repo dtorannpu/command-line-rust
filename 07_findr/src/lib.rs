@@ -68,7 +68,7 @@ pub fn get_args() -> MyResult<Config> {
         .get_many::<String>("names")
         .map(|vals| {
             vals.into_iter()
-                .map(|name| Regex::new(&name).map_err(|_| format!("Invalid --name \"{}\"", name)))
+                .map(|name| Regex::new(name).map_err(|_| format!("Invalid --name \"{}\"", name)))
                 .collect()
         })
         .transpose()?
