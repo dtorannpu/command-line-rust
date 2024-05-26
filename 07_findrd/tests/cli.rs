@@ -285,6 +285,7 @@ fn path_g() -> TestResult {
 #[test]
 #[cfg(not(windows))]
 fn unreadable_dir() -> TestResult {
+    use std::path::Path;
     let dirname = "tests/inputs/cant-touch-this";
     if !Path::new(dirname).exists() {
         fs::create_dir(dirname)?;
