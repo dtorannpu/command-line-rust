@@ -17,6 +17,7 @@ members = [
     "09_grepr",
     "10_commr",
     "11_tailr",
+    "12_fortuner",
 ]
 resolver = "2"
 

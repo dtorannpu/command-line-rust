@@ -298,6 +298,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "fortuner"
+version = "0.1.0"
+dependencies = [
+ "assert_cmd",
+ "clap",
+ "predicates",
+ "rand",
+ "regex",
+ "walkdir",
+]
+
+[[package]]
 name = "futures"
 version = "0.3.30"
 source = "registry+https://github.com/rust-lang/crates.io-index"
